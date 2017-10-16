@@ -14,7 +14,7 @@ public class ControlFrame extends JFrame {
 
 	public ControlFrame() {
 
-		grid = new GridPanel(200, 8, 4);
+		grid = new GridPanel(100, 16, 8);
 		
 		setLayout(new GridBagLayout());
 

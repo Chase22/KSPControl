@@ -2,6 +2,7 @@ package org.chase.kspcontrol.client.view;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.PopupMenu;
 import java.awt.event.ComponentAdapter;
@@ -32,6 +33,12 @@ public class GridPanel extends JPanel {
 	public GridPanel(int gridSize, int gridX, int gridY) {
 		cm = new ComponentMover();
 		cm.setSnapSize(new Dimension(gridSize, gridSize));
+		
+		FlowLayout layout = new FlowLayout();
+		layout.setHgap(0);
+		layout.setVgap(0);
+		this.setLayout(layout);
+		
 		this.gridX = gridX;
 		this.gridY = gridY;
 		this.setSize(getPreferredSize());
@@ -90,7 +97,8 @@ public class GridPanel extends JPanel {
 	 */
 	public Panel add(Panel comp) {
 		super.add(comp);
-		// cm.registerComponent(comp);
+		cm.registerComponent(comp);
+		comp.setGridSize(getGridSize());
 		return comp;
 	}
 

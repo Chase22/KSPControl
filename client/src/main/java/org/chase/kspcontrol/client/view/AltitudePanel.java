@@ -9,10 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.chase.kspcontrol.client.KSPUpdateHandler;
 import org.chase.kspcontrol.client.ClientContext;
 import org.chase.kspcontrol.client.ClientStarter;
 import org.chase.kspcontrol.common.data.Flight;
+import org.chase.kspcontrol.common.network.KSPUpdateHandler;
 import org.javatuples.Pair;
 
 import com.amjjd.unitformat.UnitFormat;
@@ -21,14 +21,12 @@ public class AltitudePanel extends Panel implements KSPUpdateHandler<Flight> {
 	JTextField AltitudeField = new JTextField();
 	JTextField SrfcAltitudeField = new JTextField();
 	
-	UnitFormat format;
-	
 	public AltitudePanel() {
 		super();
 		this.setLayout(new FlowLayout());
 		
 		GridBagConstraints cons = getConstraint();
-		cons.gridwidth = 2;
+		cons.gridwidth = 3;
 		cons.gridheight = 1;
 		setConstraint(cons);
 		
@@ -36,22 +34,18 @@ public class AltitudePanel extends Panel implements KSPUpdateHandler<Flight> {
 		
 		addTextField("Altitude: ", AltitudeField);
 		addTextField("Surface Altitude: ", SrfcAltitudeField);
-
-		format = UnitFormat.getSIInstance("m");
-		format.setNextUnitAt(4000.00);
-		format.setMaximumFractionDigits(0);
 	}
 
 	public void handle(Flight object) {
-		AltitudeField.setText(format.format(object.getMeanAltitude()));
-		SrfcAltitudeField.setText(format.format(object.getSurfaceAltitude()));
+		AltitudeField.setText(Formats.ufAltitude.format(object.getMeanAltitude()));
+		SrfcAltitudeField.setText(Formats.ufAltitude.format(object.getSurfaceAltitude()));
 	}
 	
 	private void addTextField (String label, JTextField field) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout());
 		
-		field.setColumns(20);
+		field.setColumns(8);
 		field.setEditable(false);
 		field.setHorizontalAlignment(JTextField.RIGHT);
 		panel.add(new JLabel(label));

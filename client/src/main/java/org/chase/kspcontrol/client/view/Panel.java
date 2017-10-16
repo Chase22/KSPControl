@@ -17,13 +17,14 @@ import javax.swing.border.LineBorder;
 import org.omg.PortableServer.ServantRetentionPolicyOperations;
 
 public abstract class Panel extends JPanel {
-	public static final int STANDARD_SIZE = 200;
+	private int GridSize;
 
 	private GridBagConstraints constraint = new GridBagConstraints();
 
 	public Panel() {
 		constraint.fill = GridBagConstraints.BOTH;
 		setBorder(new LineBorder(Color.GRAY));
+		
 		//this.addMouseMotionListener(new MouseListener());
 	}
 
@@ -37,7 +38,15 @@ public abstract class Panel extends JPanel {
 
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension(constraint.gridwidth * STANDARD_SIZE, constraint.gridheight * STANDARD_SIZE);
+		return new Dimension(constraint.gridwidth * GridSize, constraint.gridheight * GridSize);
+	}
+
+	public int getGridSize() {
+		return GridSize;
+	}
+
+	public void setGridSize(int gridSize) {
+		GridSize = gridSize;
 	}
 
 	protected class MouseListener implements MouseMotionListener {

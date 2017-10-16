@@ -1,9 +1,9 @@
-package org.chase.kspcontrol.client;
+package org.chase.kspcontrol.common.network;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.chase.kspcontrol.common.NetworkObject;
+import org.chase.kspcontrol.common.data.NetworkObject;
 
 import com.google.gson.Gson;
 
