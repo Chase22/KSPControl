@@ -1,6 +1,6 @@
-package org.chase.kspcontrol.client;
+package org.chase.kspcontrol.common.network;
 
-import org.chase.kspcontrol.common.NetworkObject;
+import org.chase.kspcontrol.common.data.NetworkObject;
 
 public interface KSPUpdateProvider<T extends NetworkObject<T>> {
 	public Class<T> getInstanceClass();

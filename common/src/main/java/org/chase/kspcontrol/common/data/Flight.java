@@ -2,7 +2,6 @@ package org.chase.kspcontrol.common.data;
 
 import java.io.IOException;
 
-import org.chase.kspcontrol.common.NetworkObject;
 import org.javatuples.Quartet;
 import org.javatuples.Triplet;
 

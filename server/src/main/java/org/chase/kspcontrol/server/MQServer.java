@@ -8,11 +8,13 @@ public class MQServer {
 	public static Context mqContxt = ZMQ.context(1);
 	
 	private Socket publisher;
+	private Socket request;
 	
 	public void initialize() {
 		publisher = mqContxt.socket(ZMQ.PUB);
 		publisher.bind("tcp://*:5556");
 		publisher.bind("ipc://ksp");
+
 	}
 	
 	public void close() {
@@ -20,7 +22,8 @@ public class MQServer {
 		mqContxt.term();
 	}
 	
-	public void send(String message) {
+	public void send(String prefix, String message) {
+		publisher.sendMore(prefix);
 		publisher.send(message);
 	}
 

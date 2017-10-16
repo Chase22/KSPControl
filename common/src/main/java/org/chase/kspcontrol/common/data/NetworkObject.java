@@ -1,9 +1,9 @@
-package org.chase.kspcontrol.common;
+package org.chase.kspcontrol.common.data;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.chase.kspcontrol.common.data.Flight;
+import org.chase.kspcontrol.common.KSPSerializeable;
 
 import com.google.gson.Gson;
 
@@ -22,17 +22,6 @@ public abstract class NetworkObject<T> implements KSPSerializeable<T> {
 
 	public String serialize() {
 		return new Gson().toJson(this);
-	}
-	
-	public T deserializeFromMessage(String json) {
-		String[] parts = json.split("%", 2);
-		Gson gson = new Gson();
-		return gson.fromJson(parts[1], T);
-	}
-
-	public String serializeToMessage() {
-		Flight flight = (Flight) this;
-		return getPrefix() + "%" + new Gson().toJson(this);
 	}
 
 	@Override

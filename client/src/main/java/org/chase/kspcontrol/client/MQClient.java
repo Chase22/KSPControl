@@ -2,14 +2,16 @@ package org.chase.kspcontrol.client;
 
 import java.util.HashMap;
 
-import org.chase.kspcontrol.common.NetworkObject;
 import org.chase.kspcontrol.common.data.Flight;
+import org.chase.kspcontrol.common.data.NetworkObject;
+import org.chase.kspcontrol.common.network.KSPUpdateProvider;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
 
 public class MQClient implements Runnable {
 	public static Context context = ZMQ.context(1);
 	private ZMQ.Socket subscriber;
+	private ZMQ.Socket commander;
 	
 	private Thread worker;
 	
@@ -19,12 +21,17 @@ public class MQClient implements Runnable {
 		subscriber = context.socket(ZMQ.SUB);
         subscriber.connect("tcp://localhost:5556");
         
+        commander = context.socket(ZMQ.REQ);
+        commander.connect("tcp://localhost:5556");
+        
+        
         worker = new Thread(this);
         worker.start();
 	}
 	
 	public void close() {
 		subscriber.close();
+		commander.close();
 		context.close();
 		worker.interrupt();
 	}
@@ -32,9 +39,9 @@ public class MQClient implements Runnable {
 	public void run() {
 		while (Thread.interrupted() == false) {
 			try {
+			String prefix = subscriber.recvStr(0);
 			String string = subscriber.recvStr(0).trim();
-			String[] parts = string.split("%", 2);
-			handlers.get(parts[0]).send(parts[1]);
+			handlers.get(prefix).send(string);
 			} catch (Exception e) {}
 		}
 	}
