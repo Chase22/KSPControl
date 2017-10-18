@@ -1,4 +1,4 @@
-package org.chase.kspcontrol.client.view;
+package org.chase.kspcontrol.client.view.panel;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -12,6 +12,8 @@ import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 
 import javax.swing.JPanel;
+
+import org.chase.kspcontrol.client.view.ComponentMover;
 
 /**
  * This Class represents a GUI Panel with static cell and grid size where

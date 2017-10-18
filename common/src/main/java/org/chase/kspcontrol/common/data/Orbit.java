@@ -5,7 +5,7 @@ import java.io.IOException;
 import krpc.client.RPCException;
 
 public class Orbit extends NetworkObject<Orbit> {
-	
+
 	private double apoapsis;
 	private double apoapsisAltitude;
 	private double periapsis;
@@ -28,32 +28,31 @@ public class Orbit extends NetworkObject<Orbit> {
 	private double trueAnomaly;
 	private double orbitalSpeed;
 	private double timeToSOIChange;
-	
+
 	public static Orbit createInstance(krpc.client.services.SpaceCenter.Orbit orbit) throws RPCException, IOException {
 		Orbit orbitData = new Orbit();
-		
-		orbitData.setApoapsis(orbit.getApoapsis());
-		orbitData.setApoapsisAltitude(orbit.getApoapsisAltitude());
-		orbitData.setArgumentOfPeriapsis(orbit.getArgumentOfPeriapsis());
-		orbitData.setEccentricAnomaly(orbit.getEccentricAnomaly());
-		orbitData.setEccentricity(orbit.getEccentricity());
-		orbitData.setEpoch(orbit.getEpoch());
-		orbitData.setInclination(orbit.getInclination());
-		orbitData.setLongitudeOfAscendingNode(orbit.getLongitudeOfAscendingNode());
-		orbitData.setMeanAnomaly(orbit.getMeanAnomaly());
-		orbitData.setMeanAnomalyAtEpoch(orbit.getMeanAnomalyAtEpoch());
-		orbitData.setOrbitalSpeed(orbit.getOrbitalSpeed());
-		orbitData.setPeriapsis(orbit.getPeriapsis());
-		orbitData.setPeriapsisAltitude(orbit.getPeriapsisAltitude());
-		orbitData.setPeriod(orbit.getPeriod());
-		orbitData.setRadius(orbit.getRadius());
-		orbitData.setSemiMajorAxis(orbit.getSemiMajorAxis());
-		orbitData.setSemiMinorAxis(orbit.getSemiMinorAxis());
-		orbitData.setSpeed(orbit.getSpeed());
-		orbitData.setTimeToApoapsis(orbit.getTimeToApoapsis());
-		orbitData.setTimeToPeriapsis(orbit.getTimeToPeriapsis());
-		orbitData.setTimeToSOIChange(Double.isNaN(orbit.getTimeToSOIChange()) ? -1 : orbit.getTimeToSOIChange());
-		orbitData.setTrueAnomaly(orbit.getTrueAnomaly());
+		orbitData.setApoapsis(NumberUtils.specialFloating(orbit.getApoapsis()));
+		orbitData.setApoapsisAltitude(NumberUtils.specialFloating(orbit.getApoapsisAltitude()));
+		orbitData.setArgumentOfPeriapsis(NumberUtils.specialFloating(orbit.getArgumentOfPeriapsis()));
+		orbitData.setEccentricAnomaly(NumberUtils.specialFloating(orbit.getEccentricAnomaly()));
+		orbitData.setEccentricity(NumberUtils.specialFloating(orbit.getEccentricity()));
+		orbitData.setEpoch(NumberUtils.specialFloating(orbit.getEpoch()));
+		orbitData.setInclination(NumberUtils.specialFloating(orbit.getInclination()));
+		orbitData.setLongitudeOfAscendingNode(NumberUtils.specialFloating(orbit.getLongitudeOfAscendingNode()));
+		orbitData.setMeanAnomaly(NumberUtils.specialFloating(orbit.getMeanAnomaly()));
+		orbitData.setMeanAnomalyAtEpoch(NumberUtils.specialFloating(orbit.getMeanAnomalyAtEpoch()));
+		orbitData.setOrbitalSpeed(NumberUtils.specialFloating(orbit.getOrbitalSpeed()));
+		orbitData.setPeriapsis(NumberUtils.specialFloating(orbit.getPeriapsis()));
+		orbitData.setPeriapsisAltitude(NumberUtils.specialFloating(orbit.getPeriapsisAltitude()));
+		orbitData.setPeriod(NumberUtils.specialFloating(orbit.getPeriod()));
+		orbitData.setRadius(NumberUtils.specialFloating(orbit.getRadius()));
+		orbitData.setSemiMajorAxis(NumberUtils.specialFloating(orbit.getSemiMajorAxis()));
+		orbitData.setSemiMinorAxis(NumberUtils.specialFloating(orbit.getSemiMinorAxis()));
+		orbitData.setSpeed(NumberUtils.specialFloating(orbit.getSpeed()));
+		orbitData.setTimeToApoapsis(NumberUtils.specialFloating(orbit.getTimeToApoapsis()));
+		orbitData.setTimeToPeriapsis(NumberUtils.specialFloating(orbit.getTimeToPeriapsis()));
+		orbitData.setTimeToSOIChange(NumberUtils.specialFloating(orbit.getTimeToSOIChange()));
+		orbitData.setTrueAnomaly(NumberUtils.specialFloating(orbit.getTrueAnomaly()));
 
 		return orbitData;
 	}
@@ -71,7 +70,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param apoapsis the apoapsis to set
+	 * @param apoapsis
+	 *            the apoapsis to set
 	 */
 	public void setApoapsis(double apoapsis) {
 		this.apoapsis = apoapsis;
@@ -85,7 +85,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param apoapsisAltitude the apoapsisAltitude to set
+	 * @param apoapsisAltitude
+	 *            the apoapsisAltitude to set
 	 */
 	public void setApoapsisAltitude(double apoapsisAltitude) {
 		this.apoapsisAltitude = apoapsisAltitude;
@@ -99,7 +100,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param periapsis the periapsis to set
+	 * @param periapsis
+	 *            the periapsis to set
 	 */
 	public void setPeriapsis(double periapsis) {
 		this.periapsis = periapsis;
@@ -113,7 +115,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param periapsisAltitude the periapsisAltitude to set
+	 * @param periapsisAltitude
+	 *            the periapsisAltitude to set
 	 */
 	public void setPeriapsisAltitude(double periapsisAltitude) {
 		this.periapsisAltitude = periapsisAltitude;
@@ -127,7 +130,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param semiMajorAxis the semiMajorAxis to set
+	 * @param semiMajorAxis
+	 *            the semiMajorAxis to set
 	 */
 	public void setSemiMajorAxis(double semiMajorAxis) {
 		this.semiMajorAxis = semiMajorAxis;
@@ -141,7 +145,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param semiMinorAxis the semiMinorAxis to set
+	 * @param semiMinorAxis
+	 *            the semiMinorAxis to set
 	 */
 	public void setSemiMinorAxis(double semiMinorAxis) {
 		this.semiMinorAxis = semiMinorAxis;
@@ -155,7 +160,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param radius the radius to set
+	 * @param radius
+	 *            the radius to set
 	 */
 	public void setRadius(double radius) {
 		this.radius = radius;
@@ -169,7 +175,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param speed the speed to set
+	 * @param speed
+	 *            the speed to set
 	 */
 	public void setSpeed(double speed) {
 		this.speed = speed;
@@ -183,7 +190,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param period the period to set
+	 * @param period
+	 *            the period to set
 	 */
 	public void setPeriod(double period) {
 		this.period = period;
@@ -197,7 +205,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param timeToApoapsis the timeToApoapsis to set
+	 * @param timeToApoapsis
+	 *            the timeToApoapsis to set
 	 */
 	public void setTimeToApoapsis(double timeToApoapsis) {
 		this.timeToApoapsis = timeToApoapsis;
@@ -211,7 +220,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param timeToPeriapsis the timeToPeriapsis to set
+	 * @param timeToPeriapsis
+	 *            the timeToPeriapsis to set
 	 */
 	public void setTimeToPeriapsis(double timeToPeriapsis) {
 		this.timeToPeriapsis = timeToPeriapsis;
@@ -225,7 +235,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param eccentricity the eccentricity to set
+	 * @param eccentricity
+	 *            the eccentricity to set
 	 */
 	public void setEccentricity(double eccentricity) {
 		this.eccentricity = eccentricity;
@@ -239,7 +250,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param inclination the inclination to set
+	 * @param inclination
+	 *            the inclination to set
 	 */
 	public void setInclination(double inclination) {
 		this.inclination = inclination;
@@ -253,7 +265,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param longitudeOfAscendingNode the longitudeOfAscendingNode to set
+	 * @param longitudeOfAscendingNode
+	 *            the longitudeOfAscendingNode to set
 	 */
 	public void setLongitudeOfAscendingNode(double longitudeOfAscendingNode) {
 		this.longitudeOfAscendingNode = longitudeOfAscendingNode;
@@ -267,7 +280,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param argumentOfPeriapsis the argumentOfPeriapsis to set
+	 * @param argumentOfPeriapsis
+	 *            the argumentOfPeriapsis to set
 	 */
 	public void setArgumentOfPeriapsis(double argumentOfPeriapsis) {
 		this.argumentOfPeriapsis = argumentOfPeriapsis;
@@ -281,7 +295,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param meanAnomalyAtEpoch the meanAnomalyAtEpoch to set
+	 * @param meanAnomalyAtEpoch
+	 *            the meanAnomalyAtEpoch to set
 	 */
 	public void setMeanAnomalyAtEpoch(double meanAnomalyAtEpoch) {
 		this.meanAnomalyAtEpoch = meanAnomalyAtEpoch;
@@ -295,7 +310,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param epoch the epoch to set
+	 * @param epoch
+	 *            the epoch to set
 	 */
 	public void setEpoch(double epoch) {
 		this.epoch = epoch;
@@ -309,7 +325,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param meanAnomaly the meanAnomaly to set
+	 * @param meanAnomaly
+	 *            the meanAnomaly to set
 	 */
 	public void setMeanAnomaly(double meanAnomaly) {
 		this.meanAnomaly = meanAnomaly;
@@ -323,7 +340,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param eccentricAnomaly the eccentricAnomaly to set
+	 * @param eccentricAnomaly
+	 *            the eccentricAnomaly to set
 	 */
 	public void setEccentricAnomaly(double eccentricAnomaly) {
 		this.eccentricAnomaly = eccentricAnomaly;
@@ -337,7 +355,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param trueAnomaly the trueAnomaly to set
+	 * @param trueAnomaly
+	 *            the trueAnomaly to set
 	 */
 	public void setTrueAnomaly(double trueAnomaly) {
 		this.trueAnomaly = trueAnomaly;
@@ -351,7 +370,8 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param orbitalSpeed the orbitalSpeed to set
+	 * @param orbitalSpeed
+	 *            the orbitalSpeed to set
 	 */
 	public void setOrbitalSpeed(double orbitalSpeed) {
 		this.orbitalSpeed = orbitalSpeed;
@@ -365,12 +385,11 @@ public class Orbit extends NetworkObject<Orbit> {
 	}
 
 	/**
-	 * @param timeToSOIChange the timeToSOIChange to set
+	 * @param timeToSOIChange
+	 *            the timeToSOIChange to set
 	 */
 	public void setTimeToSOIChange(double timeToSOIChange) {
 		this.timeToSOIChange = timeToSOIChange;
 	}
-	
-	
 
 }

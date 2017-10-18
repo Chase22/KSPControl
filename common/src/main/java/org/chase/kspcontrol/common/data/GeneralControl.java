@@ -10,7 +10,7 @@ import krpc.client.services.SpaceCenter.SpeedMode;
 
 public class GeneralControl extends ControlObject<GeneralControl> {
 
-	private krpc.client.services.SpaceCenter.Control controlObject;
+	private transient krpc.client.services.SpaceCenter.Control controlObject;
 	private boolean abort;
 	private boolean actiongroup;
 	private boolean antennas;
@@ -58,7 +58,7 @@ public class GeneralControl extends ControlObject<GeneralControl> {
 		controlData.currentstage = control.getCurrentStage();
 		controlData.forward = control.getForward();
 		controlData.gear = control.getGear();
-		controlData.inputmode = control.getInputMode().name();
+		//controlData.inputmode = control.getInputMode().name();
 		controlData.intakes = control.getIntakes();
 		controlData.legs = control.getLegs();
 		controlData.lights = control.getLights();
@@ -88,6 +88,8 @@ public class GeneralControl extends ControlObject<GeneralControl> {
 	}
 
 	public String parse(String method, Object... params) throws RPCException, IOException {
+		System.out.println(method);
+		System.out.println(params[0]);
 		switch(method) {
 		case "resourceHarvesters":
 		controlObject.setResourceHarvesters((boolean) params[0]);

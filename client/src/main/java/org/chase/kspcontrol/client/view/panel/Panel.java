@@ -1,4 +1,4 @@
-package org.chase.kspcontrol.client.view;
+package org.chase.kspcontrol.client.view.panel;
 
 import java.awt.Color;
 import java.awt.Component;

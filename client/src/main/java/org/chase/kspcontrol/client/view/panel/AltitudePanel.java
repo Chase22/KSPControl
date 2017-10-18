@@ -1,4 +1,4 @@
-package org.chase.kspcontrol.client.view;
+package org.chase.kspcontrol.client.view.panel;
 
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 
 import org.chase.kspcontrol.client.ClientContext;
 import org.chase.kspcontrol.client.ClientStarter;
+import org.chase.kspcontrol.client.view.Formats;
 import org.chase.kspcontrol.common.data.Flight;
 import org.chase.kspcontrol.common.network.KSPUpdateHandler;
 import org.javatuples.Pair;

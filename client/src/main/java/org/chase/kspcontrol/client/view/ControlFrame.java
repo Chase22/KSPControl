@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 
 import org.chase.kspcontrol.client.ClientContext;
 import org.chase.kspcontrol.client.ClientStarter;
+import org.chase.kspcontrol.client.view.panel.GridPanel;
+import org.chase.kspcontrol.client.view.panel.Panel;
 
 public class ControlFrame extends JFrame {
 	private GridPanel grid;

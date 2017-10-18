@@ -3,9 +3,10 @@ package org.chase.kspcontrol.client;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import org.chase.kspcontrol.client.view.AltitudePanel;
 import org.chase.kspcontrol.client.view.ControlFrame;
-import org.chase.kspcontrol.client.view.OrbitPanel;
+import org.chase.kspcontrol.client.view.panel.AltitudePanel;
+import org.chase.kspcontrol.client.view.panel.MainControlPanel;
+import org.chase.kspcontrol.client.view.panel.OrbitPanel;
 import org.chase.kspcontrol.common.data.Flight;
 import org.chase.kspcontrol.common.data.GeneralControl;
 import org.chase.kspcontrol.common.data.Orbit;
@@ -29,6 +30,7 @@ public class ClientStarter extends WindowAdapter {
 		
 		Frame.add(new AltitudePanel());
 		Frame.add(new OrbitPanel());
+		Frame.add(new MainControlPanel());
 		Frame.setVisible(true);
 	}
 

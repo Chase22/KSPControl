@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.chase.kspcontrol.common.data.Flight;
 import org.chase.kspcontrol.common.data.NetworkObject;
+import org.chase.kspcontrol.common.network.CommandMessage;
 import org.chase.kspcontrol.common.network.KSPUpdateProvider;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
@@ -22,8 +23,7 @@ public class MQClient implements Runnable {
         subscriber.connect("tcp://localhost:5556");
         
         commander = context.socket(ZMQ.REQ);
-        commander.connect("tcp://localhost:5556");
-        
+        commander.connect("tcp://localhost:5557");
         
         worker = new Thread(this);
         worker.start();
@@ -46,6 +46,11 @@ public class MQClient implements Runnable {
 		}
 	}
 	
+	public void send(String prefix, String method, Object... params) {
+		commander.send(new CommandMessage(prefix, method, params).serialize().getBytes());
+		System.out.println(commander.recvStr(0));
+	}
+	
 	public <T extends NetworkObject<T>> void registerHandler(KSPUpdateProvider<T> provider) throws InstantiationException, IllegalAccessException {
 		String prefix = provider.getInstanceClass().newInstance().getPrefix();
 		if (handlers.containsKey(prefix)) {
@@ -58,6 +63,7 @@ public class MQClient implements Runnable {
 	
 	public void unregisterHandler(String prefix) {
 		handlers.remove(prefix);
+		subscriber.unsubscribe(prefix.getBytes());
 	}
 	
 	public KSPUpdateProvider getHandler(String prefix) {

@@ -26,15 +26,14 @@ public class ServerStarter {
 		mq.initialize();
 
 		while (krpc.getCurrentGameScene() != GameScene.FLIGHT) {
-		}
-		;
+		};
 		Vessel vessel = spaceCenter.getActiveVessel();
 
 		ReferenceFrame refframe = vessel.getOrbit().getBody().getReferenceFrame();
 		Stream<Flight> flightStream = connection.addStream(vessel, "flight", refframe);
 
 		Stream<Orbit> orbitStream = connection.addStream(vessel, "getOrbit");
-		
+
 		Stream<Control> controlStream = connection.addStream(vessel, "getControl");
 
 		while (true) {
@@ -42,10 +41,13 @@ public class ServerStarter {
 				Flight flight = flightStream.get();
 				Orbit orbit = orbitStream.get();
 				Control control = controlStream.get();
+
+				org.chase.kspcontrol.common.data.Flight FlightData = org.chase.kspcontrol.common.data.Flight
+						.createInstance(flight);
+				org.chase.kspcontrol.common.data.Orbit OrbitData = org.chase.kspcontrol.common.data.Orbit
+						.createInstance(orbit);
 				
-				org.chase.kspcontrol.common.data.Flight FlightData = org.chase.kspcontrol.common.data.Flight.createInstance(flight);
-				org.chase.kspcontrol.common.data.Orbit OrbitData = org.chase.kspcontrol.common.data.Orbit.createInstance(orbit);
-				GeneralControl controlData = GeneralControl.createInstance(control);
+				GeneralControl controlData = (GeneralControl) ServerContext.getInstance().setControlObject(GeneralControl.createInstance(control));
 
 				mq.send(FlightData.getPrefix(), FlightData.serialize());
 				mq.send(OrbitData.getPrefix(), OrbitData.serialize());
