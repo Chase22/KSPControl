@@ -5,8 +5,12 @@
 	<artifactId>client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<repositories>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 
+	<repositories>
 		<repository>
 			<id>amjjd-releases</id>
 			<url>https://github.com/amjjd/amjjd-mvn-repo/raw/master/releases/</url>
