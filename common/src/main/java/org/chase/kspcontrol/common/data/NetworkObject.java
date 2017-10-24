@@ -1,5 +1,6 @@
 package org.chase.kspcontrol.common.data;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -7,13 +8,19 @@ import org.chase.kspcontrol.common.KSPSerializeable;
 
 import com.google.gson.Gson;
 
-public abstract class NetworkObject<T> implements KSPSerializeable<T> {
+import krpc.client.RPCException;
+
+public abstract class NetworkObject<T, wrappedClass> implements KSPSerializeable<T> {
 
 	private transient Class<T> T = (Class<T>) this.getClass();
 	
 	public abstract String getPrefix();
 	
+	public abstract T createInstance(wrappedClass object) throws RPCException, IOException;
+	
 	public NetworkObject(){};
+	
+	public NetworkObject(wrappedClass object) throws RPCException, IOException {};
 
 	public T deserialize(String json) {
 		Gson gson = new Gson();

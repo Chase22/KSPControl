@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import krpc.client.RPCException;
 
-public class Orbit extends NetworkObject<Orbit> {
+public class Orbit extends NetworkObject<Orbit, krpc.client.services.SpaceCenter.Orbit> {
 
 	private double apoapsis;
 	private double apoapsisAltitude;
@@ -29,37 +29,43 @@ public class Orbit extends NetworkObject<Orbit> {
 	private double orbitalSpeed;
 	private double timeToSOIChange;
 
-	public static Orbit createInstance(krpc.client.services.SpaceCenter.Orbit orbit) throws RPCException, IOException {
-		Orbit orbitData = new Orbit();
-		orbitData.setApoapsis(NumberUtils.specialFloating(orbit.getApoapsis()));
-		orbitData.setApoapsisAltitude(NumberUtils.specialFloating(orbit.getApoapsisAltitude()));
-		orbitData.setArgumentOfPeriapsis(NumberUtils.specialFloating(orbit.getArgumentOfPeriapsis()));
-		orbitData.setEccentricAnomaly(NumberUtils.specialFloating(orbit.getEccentricAnomaly()));
-		orbitData.setEccentricity(NumberUtils.specialFloating(orbit.getEccentricity()));
-		orbitData.setEpoch(NumberUtils.specialFloating(orbit.getEpoch()));
-		orbitData.setInclination(NumberUtils.specialFloating(orbit.getInclination()));
-		orbitData.setLongitudeOfAscendingNode(NumberUtils.specialFloating(orbit.getLongitudeOfAscendingNode()));
-		orbitData.setMeanAnomaly(NumberUtils.specialFloating(orbit.getMeanAnomaly()));
-		orbitData.setMeanAnomalyAtEpoch(NumberUtils.specialFloating(orbit.getMeanAnomalyAtEpoch()));
-		orbitData.setOrbitalSpeed(NumberUtils.specialFloating(orbit.getOrbitalSpeed()));
-		orbitData.setPeriapsis(NumberUtils.specialFloating(orbit.getPeriapsis()));
-		orbitData.setPeriapsisAltitude(NumberUtils.specialFloating(orbit.getPeriapsisAltitude()));
-		orbitData.setPeriod(NumberUtils.specialFloating(orbit.getPeriod()));
-		orbitData.setRadius(NumberUtils.specialFloating(orbit.getRadius()));
-		orbitData.setSemiMajorAxis(NumberUtils.specialFloating(orbit.getSemiMajorAxis()));
-		orbitData.setSemiMinorAxis(NumberUtils.specialFloating(orbit.getSemiMinorAxis()));
-		orbitData.setSpeed(NumberUtils.specialFloating(orbit.getSpeed()));
-		orbitData.setTimeToApoapsis(NumberUtils.specialFloating(orbit.getTimeToApoapsis()));
-		orbitData.setTimeToPeriapsis(NumberUtils.specialFloating(orbit.getTimeToPeriapsis()));
-		orbitData.setTimeToSOIChange(NumberUtils.specialFloating(orbit.getTimeToSOIChange()));
-		orbitData.setTrueAnomaly(NumberUtils.specialFloating(orbit.getTrueAnomaly()));
-
-		return orbitData;
+	public Orbit(krpc.client.services.SpaceCenter.Orbit orbit) throws RPCException, IOException {
+		super(orbit);
+		
+		setApoapsis(NumberUtils.specialFloating(orbit.getApoapsis()));
+		setApoapsisAltitude(NumberUtils.specialFloating(orbit.getApoapsisAltitude()));
+		setArgumentOfPeriapsis(NumberUtils.specialFloating(orbit.getArgumentOfPeriapsis()));
+		setEccentricAnomaly(NumberUtils.specialFloating(orbit.getEccentricAnomaly()));
+		setEccentricity(NumberUtils.specialFloating(orbit.getEccentricity()));
+		setEpoch(NumberUtils.specialFloating(orbit.getEpoch()));
+		setInclination(NumberUtils.specialFloating(orbit.getInclination()));
+		setLongitudeOfAscendingNode(NumberUtils.specialFloating(orbit.getLongitudeOfAscendingNode()));
+		setMeanAnomaly(NumberUtils.specialFloating(orbit.getMeanAnomaly()));
+		setMeanAnomalyAtEpoch(NumberUtils.specialFloating(orbit.getMeanAnomalyAtEpoch()));
+		setOrbitalSpeed(NumberUtils.specialFloating(orbit.getOrbitalSpeed()));
+		setPeriapsis(NumberUtils.specialFloating(orbit.getPeriapsis()));
+		setPeriapsisAltitude(NumberUtils.specialFloating(orbit.getPeriapsisAltitude()));
+		setPeriod(NumberUtils.specialFloating(orbit.getPeriod()));
+		setRadius(NumberUtils.specialFloating(orbit.getRadius()));
+		setSemiMajorAxis(NumberUtils.specialFloating(orbit.getSemiMajorAxis()));
+		setSemiMinorAxis(NumberUtils.specialFloating(orbit.getSemiMinorAxis()));
+		setSpeed(NumberUtils.specialFloating(orbit.getSpeed()));
+		setTimeToApoapsis(NumberUtils.specialFloating(orbit.getTimeToApoapsis()));
+		setTimeToPeriapsis(NumberUtils.specialFloating(orbit.getTimeToPeriapsis()));
+		setTimeToSOIChange(NumberUtils.specialFloating(orbit.getTimeToSOIChange()));
+		setTrueAnomaly(NumberUtils.specialFloating(orbit.getTrueAnomaly()));
 	}
+
+	public Orbit() {}
 
 	@Override
 	public String getPrefix() {
 		return "ORBIT";
+	}
+	
+	@Override
+	public Orbit createInstance(krpc.client.services.SpaceCenter.Orbit object) throws RPCException, IOException {
+		return new Orbit(object);
 	}
 
 	/**
@@ -391,5 +397,4 @@ public class Orbit extends NetworkObject<Orbit> {
 	public void setTimeToSOIChange(double timeToSOIChange) {
 		this.timeToSOIChange = timeToSOIChange;
 	}
-
 }

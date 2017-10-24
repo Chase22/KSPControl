@@ -8,7 +8,7 @@ import krpc.client.services.SpaceCenter.ControlInputMode;
 import krpc.client.services.SpaceCenter.SASMode;
 import krpc.client.services.SpaceCenter.SpeedMode;
 
-public class GeneralControl extends ControlObject<GeneralControl> {
+public class GeneralControl extends ControlObject<GeneralControl, krpc.client.services.SpaceCenter.Control> {
 
 	private transient krpc.client.services.SpaceCenter.Control controlObject;
 	private boolean abort;
@@ -44,48 +44,53 @@ public class GeneralControl extends ControlObject<GeneralControl> {
 	private float wheelthrottle;
 	private boolean wheels;
 	private float yaw;
-
-	public static GeneralControl createInstance(krpc.client.services.SpaceCenter.Control control)
-			throws RPCException, IOException {
-		GeneralControl controlData = new GeneralControl();
-		controlData.controlObject = control;
-
-		controlData.abort = control.getAbort();
-		//controlData.actiongroup = control.getActionGroup();
-		controlData.antennas = control.getAntennas();
-		controlData.brakes = control.getBrakes();
-		controlData.cargobays = control.getCargoBays();
-		controlData.currentstage = control.getCurrentStage();
-		controlData.forward = control.getForward();
-		controlData.gear = control.getGear();
-		//controlData.inputmode = control.getInputMode().name();
-		controlData.intakes = control.getIntakes();
-		controlData.legs = control.getLegs();
-		controlData.lights = control.getLights();
-		controlData.parachutes = control.getParachutes();
-		controlData.pitch = control.getPitch();
-		controlData.rcs = control.getRCS();
-		controlData.radiators = control.getRadiators();
-		controlData.reactionwheels = control.getReactionWheels();
-		controlData.resourceharvesters = control.getResourceHarvesters();
-		controlData.resourceharvestersactive = control.getResourceHarvestersActive();
-		controlData.right = control.getRight();
-		controlData.roll = control.getRoll();
-		controlData.sas = control.getSAS();
-		controlData.sasmode = control.getSASMode().name();
-		controlData.solarpanels = control.getSolarPanels();
-		controlData.source = control.getSource().name();
-		controlData.speedmode = control.getSpeedMode().name();
-		controlData.state = control.getState().name();
-		controlData.throttle = control.getThrottle();
-		controlData.up = control.getUp();
-		controlData.wheelsteering = control.getWheelSteering();
-		controlData.wheelthrottle = control.getWheelThrottle();
-		controlData.wheels = control.getWheels();
-		controlData.yaw = control.getYaw();
-
-		return controlData;
+	
+	@Override
+	public GeneralControl createInstance(Control object) throws RPCException, IOException {
+		return new GeneralControl(object);
 	}
+
+	public GeneralControl(krpc.client.services.SpaceCenter.Control control)
+			throws RPCException, IOException {
+		super(control);
+		
+		controlObject = control;
+		abort = control.getAbort();
+		//controlData.actiongroup = control.getActionGroup();
+		antennas = control.getAntennas();
+		brakes = control.getBrakes();
+		cargobays = control.getCargoBays();
+		currentstage = control.getCurrentStage();
+		forward = control.getForward();
+		gear = control.getGear();
+		//controlData.inputmode = control.getInputMode().name();
+		intakes = control.getIntakes();
+		legs = control.getLegs();
+		lights = control.getLights();
+		parachutes = control.getParachutes();
+		pitch = control.getPitch();
+		rcs = control.getRCS();
+		radiators = control.getRadiators();
+		reactionwheels = control.getReactionWheels();
+		resourceharvesters = control.getResourceHarvesters();
+		resourceharvestersactive = control.getResourceHarvestersActive();
+		right = control.getRight();
+		roll = control.getRoll();
+		sas = control.getSAS();
+		sasmode = control.getSASMode().name();
+		solarpanels = control.getSolarPanels();
+		source = control.getSource().name();
+		speedmode = control.getSpeedMode().name();
+		state = control.getState().name();
+		throttle = control.getThrottle();
+		up = control.getUp();
+		wheelsteering = control.getWheelSteering();
+		wheelthrottle = control.getWheelThrottle();
+		wheels = control.getWheels();
+		yaw = control.getYaw();
+	}
+
+	public GeneralControl() {}
 
 	public String parse(String method, Object... params) throws RPCException, IOException {
 		System.out.println(method);
@@ -665,4 +670,5 @@ public class GeneralControl extends ControlObject<GeneralControl> {
 	public void setYaw(float yaw) {
 		this.yaw = yaw;
 	}
+
 }

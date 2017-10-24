@@ -1,8 +1,6 @@
 package org.chase.kspcontrol.client;
 
 import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import org.chase.kspcontrol.client.view.ControlFrame;
 import org.chase.kspcontrol.client.view.panel.AltitudePanel;
 import org.chase.kspcontrol.client.view.panel.MainControlPanel;

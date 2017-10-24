@@ -2,21 +2,14 @@ package org.chase.kspcontrol.client.view.panel;
 
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
-import java.math.RoundingMode;
-
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.chase.kspcontrol.client.ClientContext;
-import org.chase.kspcontrol.client.ClientStarter;
 import org.chase.kspcontrol.client.view.Formats;
 import org.chase.kspcontrol.common.data.Flight;
 import org.chase.kspcontrol.common.network.KSPUpdateHandler;
-import org.javatuples.Pair;
-
-import com.amjjd.unitformat.UnitFormat;
 
 public class AltitudePanel extends Panel implements KSPUpdateHandler<Flight> {
 	JTextField AltitudeField = new JTextField();

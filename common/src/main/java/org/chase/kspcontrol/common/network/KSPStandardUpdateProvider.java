@@ -7,7 +7,7 @@ import org.chase.kspcontrol.common.data.NetworkObject;
 
 import com.google.gson.Gson;
 
-public class KSPStandardUpdateProvider<T extends NetworkObject<T>> implements KSPUpdateProvider<T> {
+public class KSPStandardUpdateProvider<T extends NetworkObject> implements KSPUpdateProvider<T> {
 	
 	private List<KSPUpdateHandler<T>> handlers = new ArrayList<KSPUpdateHandler<T>>();
 	private Class<T> instanceClass;

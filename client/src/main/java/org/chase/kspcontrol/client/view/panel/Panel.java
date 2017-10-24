@@ -24,8 +24,7 @@ public abstract class Panel extends JPanel {
 	public Panel() {
 		constraint.fill = GridBagConstraints.BOTH;
 		setBorder(new LineBorder(Color.GRAY));
-		
-		//this.addMouseMotionListener(new MouseListener());
+
 	}
 
 	public GridBagConstraints getConstraint() {

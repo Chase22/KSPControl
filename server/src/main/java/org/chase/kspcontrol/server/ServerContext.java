@@ -10,6 +10,11 @@ public class ServerContext {
 	private MQServer mq;
 	private HashMap<String, ControlObject> controlObjects = new HashMap<>();
 	
+	public ServerContext() {
+		mq = new MQServer();
+		mq.initialize();
+	}
+	
 	public static ServerContext getInstance() {
 		if (instance == null) instance = new ServerContext();
 		return instance;
@@ -26,5 +31,11 @@ public class ServerContext {
 	public ControlObject setControlObject(ControlObject object) {
 		controlObjects.put(object.getPrefix(), object);
 		return object;
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		mq.close();
 	}
 }

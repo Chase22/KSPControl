@@ -9,6 +9,11 @@ import krpc.client.RPCException;
  *
  * @param <T>
  */
-public abstract class ControlObject<T> extends NetworkObject<T> {
+public abstract class ControlObject<T, wrappedClass> extends NetworkObject<T, wrappedClass> {
+
+	public ControlObject(wrappedClass object) throws RPCException, IOException {super(object);}
+
+	public ControlObject() {}
+
 	public abstract String parse(String method, Object... params) throws RPCException, IOException;
 }

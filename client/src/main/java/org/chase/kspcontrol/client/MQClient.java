@@ -51,7 +51,7 @@ public class MQClient implements Runnable {
 		System.out.println(commander.recvStr(0));
 	}
 	
-	public <T extends NetworkObject<T>> void registerHandler(KSPUpdateProvider<T> provider) throws InstantiationException, IllegalAccessException {
+	public <T extends NetworkObject> void registerHandler(KSPUpdateProvider<T> provider) throws InstantiationException, IllegalAccessException {
 		String prefix = provider.getInstanceClass().newInstance().getPrefix();
 		if (handlers.containsKey(prefix)) {
 			return;

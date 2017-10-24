@@ -7,7 +7,7 @@ import org.javatuples.Triplet;
 
 import krpc.client.RPCException;
 
-public class Flight extends NetworkObject<Flight> {
+public class Flight extends NetworkObject<Flight, krpc.client.services.SpaceCenter.Flight> {
 	private float gforce;
 	
 	//Altitudes
@@ -36,30 +36,35 @@ public class Flight extends NetworkObject<Flight> {
 	private float heading;
 	private float roll;
 	
-	public static Flight createInstance(krpc.client.services.SpaceCenter.Flight flight) throws RPCException, IOException {
-		Flight flightData = new Flight();
-		
-		flightData.setBedrockAltitude(flight.getBedrockAltitude());
-		flightData.setCenterOfMass(flight.getCenterOfMass());
-		flightData.setDirection(flight.getDirection());
-		flightData.setElevation(flight.getElevation());
-		flightData.setGforce(flight.getGForce());
-		flightData.setHeading(flight.getHeading());
-		flightData.setHorizontalSpeed(flight.getHorizontalSpeed());
-		flightData.setLatitude(flight.getLatitude());
-		flightData.setLongitude(flight.getLongitude());
-		flightData.setMeanAltitude(flight.getMeanAltitude());
-		flightData.setPitch(flight.getPitch());
-		flightData.setRoll(flight.getRoll());
-		flightData.setRotation(flight.getRotation());
-		flightData.setSpeed(flight.getSpeed());
-		flightData.setSurfaceAltitude(flight.getSurfaceAltitude());
-		flightData.setVelocity(flight.getVelocity());
-		flightData.setVerticalSpeed(flight.getVerticalSpeed());
-		
-		return flightData;
+	@Override
+	public Flight createInstance(krpc.client.services.SpaceCenter.Flight object) throws RPCException, IOException {
+		return new Flight(object);
 	}
 	
+	public Flight(krpc.client.services.SpaceCenter.Flight flight) throws RPCException, IOException {
+		super(flight);
+		
+		setBedrockAltitude(flight.getBedrockAltitude());
+		setCenterOfMass(flight.getCenterOfMass());
+		setDirection(flight.getDirection());
+		setElevation(flight.getElevation());
+		setGforce(flight.getGForce());
+		setHeading(flight.getHeading());
+		setHorizontalSpeed(flight.getHorizontalSpeed());
+		setLatitude(flight.getLatitude());
+		setLongitude(flight.getLongitude());
+		setMeanAltitude(flight.getMeanAltitude());
+		setPitch(flight.getPitch());
+		setRoll(flight.getRoll());
+		setRotation(flight.getRotation());
+		setSpeed(flight.getSpeed());
+		setSurfaceAltitude(flight.getSurfaceAltitude());
+		setVelocity(flight.getVelocity());
+		setVerticalSpeed(flight.getVerticalSpeed());
+	}
+	
+	public Flight() {}
+
 	@Override
 	public String getPrefix() {
 		return "FLIGHT";
