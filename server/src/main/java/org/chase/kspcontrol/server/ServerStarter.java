@@ -7,6 +7,8 @@ import java.util.Map.Entry;
 import java.util.function.Consumer;
 
 import org.chase.kspcontrol.common.data.GeneralControl;
+import org.chase.kspcontrol.common.data.parts.PartsContainer;
+import org.chase.kspcontrol.common.data.parts.SolarPanel;
 
 import com.google.gson.Gson;
 
@@ -45,7 +47,15 @@ public class ServerStarter {
 		KSPControlConsumer<GeneralControl, Control> controlConsumer = new KSPControlConsumer<>(GeneralControl.class);
 		ServerContext.getInstance().setControlObject(new GeneralControl());
 		
+		KSPControlConsumer<PartsContainer, Vessel> partsConsumer = new KSPControlConsumer<>(PartsContainer.class);
+		 
 		Stream<List<Part>> partStream = connection.addStream(vessel.getParts(), "getAll");
+		
+
+		//@SuppressWarnings("unused")
+		//org.chase.kspcontrol.common.data.parts.Part part = new org.chase.kspcontrol.common.data.parts.Part(vessel.getParts().getAll().get(0));
+		//@SuppressWarnings("unused")
+		//SolarPanel panel = new SolarPanel(vessel.getParts().getSolarPanels().get(0));
 		
 		//flightStream.addCallback(flightConsumer);
 		
@@ -60,13 +70,8 @@ public class ServerStarter {
 				flightConsumer.accept(flight);
 				orbitConsumer.accept(orbit);
 				controlConsumer.accept(control);
-				/*
+				partsConsumer.accept(vessel);
 				
-				List<org.chase.kspcontrol.common.data.parts.Part> partData = new ArrayList<>();
-				
-				for (Part p : partStream.get()) {
-					partData.add(org.chase.kspcontrol.common.data.parts.Part.createInstance(p));
-				}*/
 			}
 		}
 	}

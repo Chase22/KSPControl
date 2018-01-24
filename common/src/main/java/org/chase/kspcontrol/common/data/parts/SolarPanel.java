@@ -5,11 +5,10 @@ import java.io.IOException;
 import krpc.client.RPCException;
 
 public class SolarPanel extends Part {
-	private krpc.client.services.SpaceCenter.SolarPanel controlObject;
+	private transient krpc.client.services.SpaceCenter.SolarPanel controlSolarpanel;
 	private boolean deployable;
 	private boolean deployed;
 	private float energyflow;
-	private Part part;
 	private String state;
 	private float sunexposure;
 
@@ -17,7 +16,7 @@ public class SolarPanel extends Part {
 			throws RPCException, IOException {
 		super(solarpanel.getPart());
 		
-		controlObject = solarpanel;
+		controlSolarpanel = solarpanel;
 		deployable = solarpanel.getDeployable();
 		deployed = solarpanel.getDeployed();
 		energyflow = solarpanel.getEnergyFlow();
@@ -26,10 +25,10 @@ public class SolarPanel extends Part {
 	}
 
 	public String parse(String method, Object... params) throws RPCException, IOException {
-		part.parse(method, params);
+		super.parse(method, params);
 		switch (method) {
 		case "deployed":
-			controlObject.setDeployed((boolean) params[0]);
+			controlSolarpanel.setDeployed((boolean) params[0]);
 			break;
 		}
 		return "worked";
@@ -76,21 +75,6 @@ public class SolarPanel extends Part {
 	public void setEnergyflow(float energyflow) {
 		this.energyflow = energyflow;
 	}
-
-	/**
-	 * @return the part
-	 */
-	public Part getPart() {
-		return part;
-	}
-
-	/**
-	 * @param part the part to set
-	 */
-	public void setPart(Part part) {
-		this.part = part;
-	}
-
 	/**
 	 * @return the state
 	 */

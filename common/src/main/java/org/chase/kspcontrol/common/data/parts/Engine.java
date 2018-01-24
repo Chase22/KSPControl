@@ -7,7 +7,7 @@ import java.util.Map;
 import krpc.client.RPCException;
 
 public class Engine extends Part {
-	private krpc.client.services.SpaceCenter.Engine controlObject;
+	private transient krpc.client.services.SpaceCenter.Engine controlEngine;
 	private boolean active;
 	private boolean automodeswitch;
 	private float availablethrust;
@@ -24,39 +24,39 @@ public class Engine extends Part {
 	private float maxthrust;
 	private float maxvacuumthrust;
 	private String mode;
-	private Map modes;
-	private List propellantnames;
-	private Map propellantratios;
-	private List propellants;
+	private transient Map modes;
+	private List<String> propellantnames;
+	private Map<String, Float> propellantratios;
+	private transient List propellants;
 	private float specificimpulse;
 	private float throttle;
 	private boolean throttlelocked;
 	private float thrust;
 	private float thrustlimit;
-	private List thrusters;
+	private transient List thrusters;
 	private float vacuumspecificimpulse;
 
 	public Engine(krpc.client.services.SpaceCenter.Engine engine) throws RPCException, IOException {
 		super(engine.getPart());
 
-		controlObject = engine;
+		controlEngine = engine;
 		active = engine.getActive();
-		automodeswitch = engine.getAutoModeSwitch();
+		try {automodeswitch = engine.getAutoModeSwitch();} catch (RPCException e) {};
 		availablethrust = engine.getAvailableThrust();
 		// availabletorque = engine.getAvailableTorque();
 		canrestart = engine.getCanRestart();
 		canshutdown = engine.getCanShutdown();
-		gimballimit = engine.getGimbalLimit();
-		gimballocked = engine.getGimbalLocked();
-		gimbalrange = engine.getGimbalRange();
-		gimballed = engine.getGimballed();
+		try {gimballimit = engine.getGimbalLimit();} catch (RPCException e) {};
+		try {gimballocked = engine.getGimbalLocked();} catch (RPCException e) {};
+		try {gimbalrange = engine.getGimbalRange();} catch (RPCException e) {};
+		try {gimballed = engine.getGimballed();} catch (RPCException e) {};
 		hasfuel = engine.getHasFuel();
 		hasmodes = engine.getHasModes();
 		kerbinsealevelspecificimpulse = engine.getKerbinSeaLevelSpecificImpulse();
 		maxthrust = engine.getMaxThrust();
 		maxvacuumthrust = engine.getMaxVacuumThrust();
-		mode = engine.getMode();
-		modes = engine.getModes();
+		try {mode = engine.getMode();} catch (RPCException e) {};
+		try {modes = engine.getModes();} catch (RPCException e) {};
 		propellantnames = engine.getPropellantNames();
 		propellantratios = engine.getPropellantRatios();
 		propellants = engine.getPropellants();
@@ -74,22 +74,22 @@ public class Engine extends Part {
 		super.parse(method, params);
 		switch (method) {
 		case "autoModeSwitch":
-			controlObject.setAutoModeSwitch((boolean) params[0]);
+			controlEngine.setAutoModeSwitch((boolean) params[0]);
 			break;
 		case "gimbalLimit":
-			controlObject.setGimbalLimit((float) params[0]);
+			controlEngine.setGimbalLimit((float) params[0]);
 			break;
 		case "active":
-			controlObject.setActive((boolean) params[0]);
+			controlEngine.setActive((boolean) params[0]);
 			break;
 		case "thrustLimit":
-			controlObject.setThrustLimit((float) params[0]);
+			controlEngine.setThrustLimit((float) params[0]);
 			break;
 		case "mode":
-			controlObject.setMode((String) params[0]);
+			controlEngine.setMode((String) params[0]);
 			break;
 		case "gimbalLocked":
-			controlObject.setGimbalLocked((boolean) params[0]);
+			controlEngine.setGimbalLocked((boolean) params[0]);
 			break;
 		}
 		return "worked";

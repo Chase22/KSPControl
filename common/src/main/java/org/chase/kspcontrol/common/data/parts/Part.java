@@ -8,7 +8,7 @@ import krpc.client.RPCException;
 import krpc.client.services.SpaceCenter.Module;
 
 public class Part extends ControlObject<Part, krpc.client.services.SpaceCenter.Part> {
-	private krpc.client.services.SpaceCenter.Part controlObject;
+	private transient krpc.client.services.SpaceCenter.Part controlObject;
 	
 	private long id;
 	private boolean axiallyattached;
@@ -77,7 +77,7 @@ public class Part extends ControlObject<Part, krpc.client.services.SpaceCenter.P
 		shielded = part.getShielded();
 		skintemperature = part.getSkinTemperature();
 		stage = part.getStage();
-		tag = part.getTag();
+		try {tag = part.getTag();} catch (RPCException e) {};
 		temperature = part.getTemperature();
 		thermalconductionflux = part.getThermalConductionFlux();
 		thermalconvectionflux = part.getThermalConvectionFlux();
@@ -106,20 +106,11 @@ public class Part extends ControlObject<Part, krpc.client.services.SpaceCenter.P
 	public String getPrefix() {
 		return "PART";
 	}
-
-	/**
-	 * @return the controlObject
-	 */
-	public krpc.client.services.SpaceCenter.Part getControlObject() {
-		return controlObject;
+	
+	public long getID() {
+		return id;
 	}
 
-	/**
-	 * @param controlObject the controlObject to set
-	 */
-	public void setControlObject(krpc.client.services.SpaceCenter.Part controlObject) {
-		this.controlObject = controlObject;
-	}
 
 	/**
 	 * @return the axiallyattached
