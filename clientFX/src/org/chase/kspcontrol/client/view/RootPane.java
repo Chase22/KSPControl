@@ -5,6 +5,7 @@ import org.chase.kspcontrol.client.view.panels.MoveablePane;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.geometry.Insets;
 import javafx.scene.layout.Pane;
 
 public class RootPane extends Pane {
@@ -20,9 +21,10 @@ public class RootPane extends Pane {
 	
 	public void addPane(KSPPane pane) {
 		MoveablePane wrapper = new MoveablePane((Pane) pane);
+		wrapper.setPadding(new Insets(10, 10, 10, 10));
+		wrapper.setGridSize(getGridSize());
 		wrapper.setPaneHeight(pane.getPaneHeight());
 		wrapper.setPaneWidth(pane.getPaneWidth());
-		wrapper.setGridSize(getGridSize());
 		wrapper.layoutYProperty().bind(bar.heightProperty());
 		
 		getChildren().add(wrapper);

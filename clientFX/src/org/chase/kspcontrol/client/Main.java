@@ -4,6 +4,8 @@ import java.util.ResourceBundle;
 
 import org.chase.kspcontrol.client.view.RootPane;
 import org.chase.kspcontrol.client.view.panels.AltiudePanel;
+import org.chase.kspcontrol.client.view.panels.MoveablePane;
+import org.chase.kspcontrol.client.view.panels.OrbitPanel;
 import org.chase.kspcontrol.common.data.Flight;
 import org.chase.kspcontrol.common.data.GeneralControl;
 import org.chase.kspcontrol.common.data.Orbit;
@@ -25,18 +27,19 @@ public class Main extends Application {
 		instance = this;
 		
 		bundle = ResourceBundle.getBundle("localisation");
-		System.out.println(bundle.getString("application.test"));
+		//System.out.println(bundle.getString("application.test"));
 		try {
 			RootPane root = new RootPane();
 			AltiudePanel altitude = new AltiudePanel();
-			
-			AltiudePanel altitude2 = new AltiudePanel();
+			OrbitPanel orbit = new OrbitPanel();
 			
 			//root.prefWidthProperty().bind(primaryStage.widthProperty());
 			//root.prefWidthProperty().bind(primaryStage.widthProperty());
 
+			root.setGridSize(100);
+
 			root.addPane(altitude);
-			root.addPane(altitude2);
+			root.addPane(orbit);
 			
 			
 			Scene scene = new Scene(root,400,400);

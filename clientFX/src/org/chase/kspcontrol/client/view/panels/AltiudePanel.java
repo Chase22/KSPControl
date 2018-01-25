@@ -1,23 +1,13 @@
 package org.chase.kspcontrol.client.view.panels;
 
-import java.awt.Color;
-
-import javax.swing.border.LineBorder;
-
 import org.chase.kspcontrol.client.ClientContext;
-import org.chase.kspcontrol.client.view.ComponentMover;
 import org.chase.kspcontrol.client.view.Formats;
-import org.chase.kspcontrol.client.view.components.TextFieldComponent;
 import org.chase.kspcontrol.common.data.Flight;
 import org.chase.kspcontrol.common.network.KSPUpdateHandler;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 
 public class AltiudePanel extends GridPane implements KSPUpdateHandler<Flight>, KSPPane {
 	
