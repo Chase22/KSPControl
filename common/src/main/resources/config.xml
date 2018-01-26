@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration version="1.0">
+<configuration version="1"> <!-- DO NOT EDIT THIS NUMBER -->
 	<common>
 		<test>THIS IS A TEST</test>
 	</common>
