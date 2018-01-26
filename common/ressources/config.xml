@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration version="1.0">
+	<common>
+		<test>THIS IS A TEST</test>
+	</common>
+	<client>
+	
+	</client>
+	<server>
+	
+	</server>
+	
+</configuration>
