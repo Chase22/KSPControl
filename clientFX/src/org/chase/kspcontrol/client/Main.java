@@ -3,6 +3,7 @@ package org.chase.kspcontrol.client;
 import java.util.ResourceBundle;
 
 import org.chase.kspcontrol.client.view.RootPane;
+import org.chase.kspcontrol.client.view.components.ToggleComponent;
 import org.chase.kspcontrol.client.view.panels.AltiudePanel;
 import org.chase.kspcontrol.client.view.panels.MoveablePane;
 import org.chase.kspcontrol.client.view.panels.OrbitPanel;
@@ -40,6 +41,11 @@ public class Main extends Application {
 
 			root.addPane(altitude);
 			root.addPane(orbit);
+			
+			ToggleComponent comp = new ToggleComponent("", "", "test");
+			comp.setLayoutX(100);
+			comp.setLayoutY(100);
+			root.getChildren().add(comp);
 			
 			
 			Scene scene = new Scene(root,400,400);
