@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import org.chase.kspcontrol.client.view.RootPane;
 import org.chase.kspcontrol.client.view.components.ToggleComponent;
 import org.chase.kspcontrol.client.view.panels.AltiudePanel;
+import org.chase.kspcontrol.client.view.panels.GeneralControlPanel;
 import org.chase.kspcontrol.client.view.panels.MoveablePane;
 import org.chase.kspcontrol.client.view.panels.OrbitPanel;
 import org.chase.kspcontrol.common.data.Flight;
@@ -33,20 +34,13 @@ public class Main extends Application {
 			RootPane root = new RootPane();
 			AltiudePanel altitude = new AltiudePanel();
 			OrbitPanel orbit = new OrbitPanel();
-			
-			//root.prefWidthProperty().bind(primaryStage.widthProperty());
-			//root.prefWidthProperty().bind(primaryStage.widthProperty());
 
 			root.setGridSize(100);
 
 			root.addPane(altitude);
 			root.addPane(orbit);
 			
-			ToggleComponent comp = new ToggleComponent("", "", "test");
-			comp.setLayoutX(100);
-			comp.setLayoutY(100);
-			root.getChildren().add(comp);
-			
+			root.addPane(new GeneralControlPanel());
 			
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

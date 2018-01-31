@@ -5,6 +5,11 @@ import java.awt.Color;
 public class ToggleLamp extends Lamp {
 	
 	public ToggleLamp() {
+		super();
+		defaultStates();
+	}
+	
+	private void defaultStates() {
 		this.addState("true", Color.GREEN);
 		this.addState("false", Color.RED);
 	}

@@ -1,6 +1,7 @@
 package org.chase.kspcontrol.client.view.component;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.HashMap;
 
@@ -13,6 +14,10 @@ public class Lamp extends JPanel{
 	
 	private String currentState;
 
+	public Lamp() {
+		this.setPreferredSize(new Dimension(50, 50));
+	}
+	
 	/**
 	 * @return the currentState
 	 */
