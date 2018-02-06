@@ -1,44 +1,33 @@
 package org.chase.kspcontrol.client.view;
 
-import org.chase.kspcontrol.client.view.panels.KSPPane;
-import org.chase.kspcontrol.client.view.panels.MoveablePane;
+import org.chase.kspcontrol.client.view.subviews.KSPMenuBar;
+import org.chase.kspcontrol.client.view.subviews.PaneListPanel;
 
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.geometry.Insets;
-import javafx.scene.layout.Pane;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.layout.BorderPane;
 
-public class RootPane extends Pane {
+public class RootPane extends BorderPane{
 	KSPMenuBar bar = new KSPMenuBar();
+	MainGridPane grid;
+	PaneListPanel listpane;
 	
-	FloatProperty gridSize = new SimpleFloatProperty();
 	
 	public RootPane() {
-		getChildren().add(bar);
-		bar.prefWidthProperty().bind(widthProperty());
-		getStyleClass().add("MoveablePane");
-	}
-	
-	public void addPane(KSPPane pane) {
-		MoveablePane wrapper = new MoveablePane((Pane) pane);
-		wrapper.setPadding(new Insets(10, 10, 10, 10));
-		wrapper.setGridSize(getGridSize());
-		wrapper.setPaneHeight(pane.getPaneHeight());
-		wrapper.setPaneWidth(pane.getPaneWidth());
-		wrapper.layoutYProperty().bind(bar.heightProperty());
+		grid = new MainGridPane();
+		listpane = new PaneListPanel(this);
 		
-		getChildren().add(wrapper);
+		setTop(bar);
+		setCenter(grid);
+		setRight(listpane);
 	}
 	
-	public FloatProperty gridSizeProperty() {
-		return gridSize;
+	public MainGridPane getGridPane() {
+		return grid;
 	}
 	
-	public void setGridSize(float gridSize) {
-		this.gridSize.set(gridSize);
+	public KSPMenuBar getMenuBar() {
+		return bar;
 	}
-	
-	public float getGridSize() {
-		return this.gridSize.get();
-	}
+
 }

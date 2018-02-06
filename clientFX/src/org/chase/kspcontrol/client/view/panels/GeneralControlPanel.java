@@ -50,4 +50,19 @@ public class GeneralControlPanel extends FlowPane  implements KSPUpdateHandler<G
 		antennas.setCurrentState(control.isAntennas());
 	}
 
+	@Override
+	public String getTitle() {
+		return "General Control";
+	}
+	
+	@Override
+	public KSPPane getInstance() {
+		return new GeneralControlPanel();
+	}
+
+	@Override
+	public void destroy() {
+		ClientContext.getInstance().getMQClient().getHandler(new GeneralControl().getPrefix()).register(this);
+	}
+
 }

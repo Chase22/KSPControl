@@ -60,9 +60,7 @@ public class Lamp extends StackPane{
 		if (fill == null) fill = COLOR_INVALID;
 		
 		this.setBackground(new Background(new BackgroundFill(fill, new CornerRadii(0), Insets.EMPTY)));
-		System.out.println(getTextColor(fill).toString());
 		text.setTextFill(getTextColor(fill));
-		System.out.println(text.getTextFill().toString());
 	}
 	
 	public void addState(String key, Color color) {

@@ -43,5 +43,19 @@ public class OrbitPanel extends GridPane implements KSPUpdateHandler<Orbit>, KSP
 		return 3;
 	}
 	
+	@Override
+	public String getTitle() {
+		return "Orbit Information";
+	}
+	
+	@Override
+	public KSPPane getInstance() {
+		return new OrbitPanel();
+	}
+
+	@Override
+	public void destroy() {
+		ClientContext.getInstance().getMQClient().getHandler(new Flight().getPrefix()).unregister(this);
+	}
 	
 }
