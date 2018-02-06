@@ -1,9 +1,6 @@
 package org.chase.kspcontrol.client.view.component;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -12,13 +9,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import javax.swing.border.LineBorder;
-
 import org.chase.kspcontrol.client.ClientContext;
-import org.chase.kspcontrol.common.data.GeneralControl;
 
 public class ToggleButtonPanel extends Box {
-	private ToggleLamp lamp = new ToggleLamp();
+	private ToggleLamp lamp;
 	private JToggleButton buttonTrue = new JToggleButton("On");
 	private JToggleButton buttonFalse = new JToggleButton("Off");
 	
@@ -56,6 +50,7 @@ public class ToggleButtonPanel extends Box {
 		
 		this.label.setText(label);
 		
+		lamp = new ToggleLamp();
 		LampPanel.add(lamp);
 		ButtonPanel.add(buttonTrue);
 		ButtonPanel.add(buttonFalse);

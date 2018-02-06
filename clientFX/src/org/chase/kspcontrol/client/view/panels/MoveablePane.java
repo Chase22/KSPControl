@@ -1,16 +1,26 @@
 package org.chase.kspcontrol.client.view.panels;
 
+import org.chase.kspcontrol.client.view.subviews.KSPPaneContextMenu;
+
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class MoveablePane extends VBox implements EventHandler<MouseEvent>, KSPPane {
 
+	private Pane child;
+	private KSPPaneContextMenu contextMenu;
+	
+	private BooleanProperty locked = new SimpleBooleanProperty();
+	
 	private FloatProperty gridSize = new SimpleFloatProperty();
 	
 	private IntegerProperty heightProperty = new SimpleIntegerProperty() {
@@ -33,14 +43,34 @@ public class MoveablePane extends VBox implements EventHandler<MouseEvent>, KSPP
 	};
 
 	public MoveablePane(Pane child) {
+		contextMenu = new KSPPaneContextMenu(this);
+		
 		getStyleClass().add("MoveablePane");
 		child.getStyleClass().add(child.getClass().getSimpleName());
 		this.getChildren().add(child);
 		this.setOnMouseDragged(this);
+		
+		this.setOnContextMenuRequested( new EventHandler<ContextMenuEvent>() {
+			@Override
+			public void handle(ContextMenuEvent event) {
+				contextMenu.show(child, event.getScreenX(), event.getScreenY());
+			}
+		});
+		
+		this.child = child;
+	}
+	
+	public void removeSelf() {
+		((Pane) getParent()).getChildren().remove(this);
+		if(KSPPane.class.isInstance(child)) {
+			((KSPPane) child).destroy();
+		}
 	}
 
 	@Override
 	public void handle(MouseEvent event) {
+		if (locked.get()) return;
+		
 		double translateX = Math.round(((event.getX() + getTranslateX()) / gridSize.get())) * gridSize.get();
 		double translateY = Math.round(((event.getY() + getTranslateY()) / gridSize.get())) * gridSize.get();
 
@@ -96,5 +126,30 @@ public class MoveablePane extends VBox implements EventHandler<MouseEvent>, KSPP
 	public void setPaneWidth(int width) {
 		widthProperty.set(width);
 	}
+	
+	public boolean getLocked() {
+		return locked.get();
+	}
+	
+	public void setLocked(boolean locked) {
+		this.locked.set(locked);
+	}
+	
+	public BooleanProperty lockedProperty() {
+		return locked;
+	}
+	
+	@Override
+	public String getTitle() {
+		return null;
+	}
+	
+	@Override
+	public KSPPane getInstance() {
+		return null;
+	}
+
+	@Override
+	public void destroy() {}
 
 }

@@ -43,6 +43,20 @@ public class AltiudePanel extends GridPane implements KSPUpdateHandler<Flight>, 
 	public int getPaneWidth() {
 		return 3;
 	}
+	@Override
+	public String getTitle() {
+		return "Altiude Information";
+	}
+
+	@Override
+	public KSPPane getInstance() {
+		return new AltiudePanel();
+	}
+
+	@Override
+	public void destroy() {
+		ClientContext.getInstance().getMQClient().getHandler(new Flight().getPrefix()).unregister(this);
+	}
 	
 	
 }
