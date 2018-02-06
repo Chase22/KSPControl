@@ -1,4 +1,4 @@
-package org.chase.kspcontrol.client.view;
+package org.chase.kspcontrol.client.view.subviews;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
