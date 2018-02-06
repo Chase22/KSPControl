@@ -4,3 +4,7 @@
 	-fx-border-style: solid ;
 	-fx-border-width: 2px;
 } 
+
+.NumberField {
+	-fx-font-family: monospace;
+} 

@@ -11,9 +11,9 @@ import javafx.scene.layout.GridPane;
 
 public class AltiudePanel extends GridPane implements KSPUpdateHandler<Flight>, KSPPane {
 	
-	Label AltitudeLabel = new Label("Altiude:");
+	Label AltitudeLabel = new Label("Altiude: ");
 	TextField AltitudeField = new TextField();
-	Label SrfcAltitudeLabel = new Label("Surface Altitude:");
+	Label SrfcAltitudeLabel = new Label("Surface Altitude: ");
 	TextField SrfcAltitudeField = new TextField();
 	
 	public AltiudePanel() {
@@ -41,7 +41,7 @@ public class AltiudePanel extends GridPane implements KSPUpdateHandler<Flight>, 
 
 	@Override
 	public int getPaneWidth() {
-		return 2;
+		return 3;
 	}
 	
 	
