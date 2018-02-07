@@ -27,6 +27,8 @@ public class ToggleComponent extends VBox implements ChangeListener<String> {
 		tbc = new ToggleButtonComponent(String.valueOf(initial), "true", "false");
 		tbc.currentStateProperty().addListener(this);
 		
+		lamp.currentStateProperty().bind(tbc.currentStateProperty());
+		
 		this.getChildren().add(lamp);
 		this.getChildren().add(tbc);
 	}
@@ -34,7 +36,6 @@ public class ToggleComponent extends VBox implements ChangeListener<String> {
 	@Override
 	public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 		ClientContext.getInstance().getMQClient().send(boundPrefix, boundMethod, Boolean.parseBoolean(newValue));
-		lamp.setCurrentState(newValue);
 	}
 	
 	public boolean getCurrentState() {

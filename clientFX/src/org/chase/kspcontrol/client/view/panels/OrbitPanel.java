@@ -3,9 +3,12 @@ package org.chase.kspcontrol.client.view.panels;
 import org.chase.kspcontrol.client.ClientContext;
 import org.chase.kspcontrol.client.view.Formats;
 import org.chase.kspcontrol.common.KSPResourceBundle;
+import org.chase.kspcontrol.common.data.Flight;
 import org.chase.kspcontrol.common.data.Orbit;
 import org.chase.kspcontrol.common.network.KSPUpdateHandler;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -16,8 +19,13 @@ public class OrbitPanel extends GridPane implements KSPUpdateHandler<Orbit>, KSP
 	
 	private Label ApoapsisLabel = new Label(bundle.getString("apoapsis") + ": ");
 	private TextField ApoapsisField = new TextField();
+	private StringProperty apoapsisText = new SimpleStringProperty();
+	
 	private Label TTApoapsisLabel = new Label(String.format("%s %s: ", bundle.getString("timeTo"), bundle.getString("apoapsis")));
 	private TextField TTApoapsisField = new TextField();
+	private StringProperty TTApoapsisText = new SimpleStringProperty();
+	
+	
 	
 	public OrbitPanel() {
 		ClientContext.getInstance().getMQClient().getHandler(new Orbit().getPrefix()).register(this);
@@ -26,9 +34,13 @@ public class OrbitPanel extends GridPane implements KSPUpdateHandler<Orbit>, KSP
 		ApoapsisField.setPrefColumnCount(10);
 		ApoapsisField.getStyleClass().add("NumberField");
 		
+		ApoapsisField.textProperty().bind(apoapsisText);
+		
 		TTApoapsisField.setEditable(false);
 		TTApoapsisField.setPrefColumnCount(10);
 		TTApoapsisField.getStyleClass().add("NumberField");
+		
+		TTApoapsisField.textProperty().bind(TTApoapsisText);
 		
 		this.add(ApoapsisLabel, 0, 0);
 		this.add(ApoapsisField, 1, 0);
@@ -37,9 +49,8 @@ public class OrbitPanel extends GridPane implements KSPUpdateHandler<Orbit>, KSP
 	}
 
 	public void handle(Orbit object) {
-		ApoapsisField.setText(Formats.ufAltitude.format(object.getApoapsisAltitude()));
-		TTApoapsisLabel.setText(Formats.formatSec(object.getTimeToApoapsis()));
-		
+		apoapsisText.set(Formats.ufAltitude.format(object.getApoapsisAltitude()));
+		TTApoapsisText.set(Formats.formatSec(object.getTimeToApoapsis()));
 	}
 
 	@Override

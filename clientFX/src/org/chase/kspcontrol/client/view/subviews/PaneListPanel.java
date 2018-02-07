@@ -114,7 +114,7 @@ public class PaneListPanel extends BorderPane {
 	private class HideButtonChangeListener implements ChangeListener<Boolean> {
 		@Override
 		public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-			hideButton.setText(newValue ? "▶" : "◀");
+			hideButton.setText(newValue ? Character.toString(((char) 9654)) : Character.toString(((char) 9664)));
 		}
 
 	}

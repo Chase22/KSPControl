@@ -75,8 +75,6 @@ public class MoveablePane extends VBox implements EventHandler<MouseEvent>, KSPP
 		double translateY = Math.round(((event.getY() + getTranslateY()) / gridSize.get())) * gridSize.get();
 
 		this.setManaged(false);
-		
-		System.out.println(getParent().getLayoutBounds().getMinX() + " " + this.getLayoutX() + translateX);
 
 		if (this.getLayoutX() + translateX + getPrefWidth() < getParent().getLayoutBounds().getMaxX()
 				&& this.getLayoutX() + translateX > getParent().getLayoutBounds().getMinX()) {
