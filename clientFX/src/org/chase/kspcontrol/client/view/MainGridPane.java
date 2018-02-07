@@ -6,20 +6,15 @@ import org.chase.kspcontrol.client.view.panels.MoveablePane;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.Pane;
 
+@StyleAnotation( {"MoveablePane", "KSPPane"} )
 public class MainGridPane extends Pane {
 	private FloatProperty gridSize = new SimpleFloatProperty();
 
 	public MainGridPane() {
-		getStyleClass().add("MoveablePane");
-		
+		StyleProcessor.addStyleClasses(this);
 	}
 
 	public void addPane(KSPPane pane, ReadOnlyDoubleProperty menuBarHeight) {
