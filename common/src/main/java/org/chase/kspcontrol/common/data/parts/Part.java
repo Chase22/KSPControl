@@ -1,6 +1,7 @@
 package org.chase.kspcontrol.common.data.parts;
 
 import java.io.IOException;
+import java.util.function.Predicate;
 
 import org.chase.kspcontrol.common.data.ControlObject;
 
@@ -51,12 +52,24 @@ public class Part extends ControlObject<Part, krpc.client.services.SpaceCenter.P
 		super(part);
 		
 		controlObject = part;
-		for(Module m : part.getModules()) {
-			if (m.getName().equals("PartIdModule")) {
-				id = Long.parseLong(m.getFields().get("PartID"));
-				break;
+		Module idModule = part.getModules().stream().filter(new Predicate<Module>() {
+			@Override
+			public boolean test(Module t) {
+				try {
+					return t.getName().equals("PartIdModule");
+				} catch (RPCException | IOException e) {
+					return false;
+				}
 			}
-		}
+		}).findFirst().get();
+		id = Long.parseLong(idModule.getField("PartID"));
+			
+//		for(Module m : part.getModules()) {
+//			if (m.getName().equals("PartIdModule")) {
+//				id = Long.parseLong(m.getFields().get("PartID"));
+//				break;
+//			}
+//		}
 		
 		axiallyattached = part.getAxiallyAttached();
 		cost = part.getCost();

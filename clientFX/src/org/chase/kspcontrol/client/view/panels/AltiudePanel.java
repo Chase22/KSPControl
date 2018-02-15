@@ -20,7 +20,10 @@ public class AltiudePanel extends GridPane implements KSPUpdateHandler<Flight>, 
 		ClientContext.getInstance().getMQClient().getHandler(new Flight().getPrefix()).register(this);
 		
 		AltitudeField.setEditable(false);
+		AltitudeField.getStyleClass().add("NumberField");
+		
 		SrfcAltitudeField.setEditable(false);
+		SrfcAltitudeField.getStyleClass().add("NumberField");
 		
 		this.add(AltitudeLabel, 0, 0);
 		this.add(AltitudeField, 1, 0);

@@ -47,6 +47,10 @@ public class MoveablePane extends VBox implements EventHandler<MouseEvent>, KSPP
 		
 		getStyleClass().add("MoveablePane");
 		child.getStyleClass().add(child.getClass().getSimpleName());
+		
+		child.minHeightProperty().bind(this.heightProperty);
+		child.minWidthProperty().bind(this.widthProperty);
+		
 		this.getChildren().add(child);
 		this.setOnMouseDragged(this);
 		

@@ -7,11 +7,18 @@ import org.chase.kspcontrol.common.data.Flight;
 import org.chase.kspcontrol.common.data.Orbit;
 import org.chase.kspcontrol.common.network.KSPUpdateHandler;
 
+import com.sun.glass.ui.Pixels.Format;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.geometry.HPos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 public class OrbitPanel extends GridPane implements KSPUpdateHandler<Orbit>, KSPPane {
 	
@@ -19,12 +26,19 @@ public class OrbitPanel extends GridPane implements KSPUpdateHandler<Orbit>, KSP
 	
 	private Label ApoapsisLabel = new Label(bundle.getString("apoapsis") + ": ");
 	private TextField ApoapsisField = new TextField();
-	private StringProperty apoapsisText = new SimpleStringProperty();
+	private StringProperty ApoapsisText = new SimpleStringProperty();
 	
 	private Label TTApoapsisLabel = new Label(String.format("%s %s: ", bundle.getString("timeTo"), bundle.getString("apoapsis")));
 	private TextField TTApoapsisField = new TextField();
 	private StringProperty TTApoapsisText = new SimpleStringProperty();
 	
+	private Label PeriapsisLabel = new Label(bundle.getString("periapsis") + ": ");
+	private TextField PeriapsisField = new TextField();
+	private StringProperty PeriapsisText = new SimpleStringProperty();
+	
+	private Label TTPeriapsisLabel = new Label(String.format("%s %s: ", bundle.getString("timeTo"), bundle.getString("periapsis")));
+	private TextField TTPeriapsisField = new TextField();
+	private StringProperty TTPeriapsisText = new SimpleStringProperty();
 	
 	
 	public OrbitPanel() {
@@ -33,29 +47,49 @@ public class OrbitPanel extends GridPane implements KSPUpdateHandler<Orbit>, KSP
 		ApoapsisField.setEditable(false);
 		ApoapsisField.setPrefColumnCount(10);
 		ApoapsisField.getStyleClass().add("NumberField");
-		
-		ApoapsisField.textProperty().bind(apoapsisText);
+		ApoapsisField.textProperty().bind(ApoapsisText);
+		this.setHalignment(ApoapsisField, HPos.RIGHT);
 		
 		TTApoapsisField.setEditable(false);
 		TTApoapsisField.setPrefColumnCount(10);
 		TTApoapsisField.getStyleClass().add("NumberField");
-		
 		TTApoapsisField.textProperty().bind(TTApoapsisText);
+		this.setHalignment(TTApoapsisField, HPos.RIGHT);
+		
+		PeriapsisField.setEditable(false);
+		PeriapsisField.setPrefColumnCount(10);
+		PeriapsisField.getStyleClass().add("NumberField");
+		PeriapsisField.textProperty().bind(PeriapsisText);
+		this.setHalignment(PeriapsisField, HPos.RIGHT);
+		
+		TTPeriapsisField.setEditable(false);
+		TTPeriapsisField.setPrefColumnCount(10);
+		TTPeriapsisField.getStyleClass().add("NumberField");
+		TTPeriapsisField.textProperty().bind(TTPeriapsisText);
+		this.setHalignment(TTPeriapsisField, HPos.RIGHT);
+		
+		this.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, null)));
 		
 		this.add(ApoapsisLabel, 0, 0);
 		this.add(ApoapsisField, 1, 0);
 		this.add(TTApoapsisLabel, 0, 1);
 		this.add(TTApoapsisField, 1, 1);
+		this.add(PeriapsisLabel, 0, 2);
+		this.add(PeriapsisField, 1, 2);
+		this.add(TTPeriapsisLabel, 0, 3);
+		this.add(TTPeriapsisField, 1, 3);
 	}
 
 	public void handle(Orbit object) {
-		apoapsisText.set(Formats.ufAltitude.format(object.getApoapsisAltitude()));
+		ApoapsisText.set(Formats.ufAltitude.format(object.getApoapsisAltitude()));
 		TTApoapsisText.set(Formats.formatSec(object.getTimeToApoapsis()));
+		PeriapsisText.set(Formats.ufAltitude.format(object.getPeriapsisAltitude()));
+		TTPeriapsisText.set(Formats.formatSec(object.getTimeToPeriapsis()));
 	}
 
 	@Override
 	public int getPaneHeight() {
-		return 1;
+		return 2;
 	}
 
 	@Override

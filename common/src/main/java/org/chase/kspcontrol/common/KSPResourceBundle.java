@@ -40,7 +40,6 @@ public class KSPResourceBundle {
 	 * @see java.util.PropertyResourceBundle#getKeys()
 	 */
 	public Enumeration<String> getKeys() {
-		// TODO Auto-generated method stub
 		return bundle.getKeys();
 	}
 
@@ -48,8 +47,7 @@ public class KSPResourceBundle {
 	 * @see java.util.ResourceBundle#containsKey(java.lang.String)
 	 */
 	public boolean containsKey(String key) {
-		// TODO Auto-generated method stub
-		return bundle.containsKey(key);
+		return bundle.containsKey(buildKey(key));
 	}
 
 	/* (non-Javadoc)
@@ -77,7 +75,7 @@ public class KSPResourceBundle {
 	}
 	
 	public String getString(String key) {
-		return bundle.getString(prefix + "." + key);
+		return bundle.getString(buildKey(key));
 	}
 	
 	public String getFormatString(String key, Object...params) {
@@ -85,7 +83,14 @@ public class KSPResourceBundle {
 	}
 	
 	public Object getObject(String key) {
-		return bundle.getObject(key);
+		return bundle.getObject(buildKey(key));
+	}
+	
+	private String buildKey(String key) {
+		String buildkey = "";
+		if (prefix != null) buildkey += prefix + ".";
+		buildkey += key;
+		return buildkey;
 	}
 
 	/**

@@ -7,6 +7,7 @@ import org.chase.kspcontrol.common.NotInitialisedException;
 import org.chase.kspcontrol.common.data.GeneralControl;
 import org.chase.kspcontrol.common.data.parts.PartsContainer;
 
+import javafx.scene.shape.CircleBuilder;
 import krpc.client.Connection;
 import krpc.client.RPCException;
 import krpc.client.Stream;
@@ -15,6 +16,7 @@ import krpc.client.services.KRPC;
 import krpc.client.services.SpaceCenter;
 import krpc.client.services.KRPC.GameScene;
 import krpc.client.services.SpaceCenter.Control;
+import krpc.client.services.SpaceCenter.ControlInputMode;
 import krpc.client.services.SpaceCenter.Flight;
 import krpc.client.services.SpaceCenter.Orbit;
 import krpc.client.services.SpaceCenter.Part;
@@ -81,7 +83,7 @@ public class Server {
 				Flight flight = flightStream.get();
 				Orbit orbit = orbitStream.get();
 				Control control = controlStream.get();
-
+				
 				flightConsumer.accept(flight);
 				orbitConsumer.accept(orbit);
 				controlConsumer.accept(control);
