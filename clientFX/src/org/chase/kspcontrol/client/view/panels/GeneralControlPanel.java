@@ -5,6 +5,7 @@ import org.chase.kspcontrol.client.view.components.ToggleComponent;
 import org.chase.kspcontrol.common.data.GeneralControl;
 import org.chase.kspcontrol.common.network.KSPUpdateHandler;
 
+import javafx.application.Platform;
 import javafx.scene.layout.FlowPane;
 
 public class GeneralControlPanel extends FlowPane  implements KSPUpdateHandler<GeneralControl>, KSPPane {
@@ -41,13 +42,19 @@ public class GeneralControlPanel extends FlowPane  implements KSPUpdateHandler<G
 
 	@Override
 	public void handle(GeneralControl control) {
-		light.setCurrentState(control.isLights());
-		gear.setCurrentState(control.isGear());
-		legs.setCurrentState(control.isLegs());
-		solar.setCurrentState(control.isSolarpanels());
-		radiators.setCurrentState(control.isRadiators());
-		cargoBays.setCurrentState(control.isCargobays());
-		antennas.setCurrentState(control.isAntennas());
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				light.setCurrentState(control.isLights());
+				gear.setCurrentState(control.isGear());
+				legs.setCurrentState(control.isLegs());
+				solar.setCurrentState(control.isSolarpanels());
+				radiators.setCurrentState(control.isRadiators());
+				cargoBays.setCurrentState(control.isCargobays());
+				antennas.setCurrentState(control.isAntennas());
+			}
+		});
+		
 	}
 
 	@Override

@@ -56,7 +56,7 @@ public class Part extends ControlObject<Part, krpc.client.services.SpaceCenter.P
 			@Override
 			public boolean test(Module t) {
 				try {
-					return t.getName().equals("PartIdModule");
+					return t.getName().equals("ModulePartID");
 				} catch (RPCException | IOException e) {
 					return false;
 				}

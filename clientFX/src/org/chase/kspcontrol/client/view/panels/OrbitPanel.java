@@ -1,19 +1,16 @@
 package org.chase.kspcontrol.client.view.panels;
 
 import org.chase.kspcontrol.client.ClientContext;
-import org.chase.kspcontrol.client.view.Formats;
+import org.chase.kspcontrol.client.view.components.TextFieldGridComponent;
+import org.chase.kspcontrol.client.view.formats.HeightTextConverter;
+import org.chase.kspcontrol.client.view.formats.SpeedTextConverter;
+import org.chase.kspcontrol.client.view.formats.TimeTextConverter;
 import org.chase.kspcontrol.common.KSPResourceBundle;
 import org.chase.kspcontrol.common.data.Flight;
 import org.chase.kspcontrol.common.data.Orbit;
 import org.chase.kspcontrol.common.network.KSPUpdateHandler;
 
-import com.sun.glass.ui.Pixels.Format;
-
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.geometry.HPos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.application.Platform;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -24,67 +21,92 @@ public class OrbitPanel extends GridPane implements KSPUpdateHandler<Orbit>, KSP
 	
 	private KSPResourceBundle bundle = KSPResourceBundle.getBundle("localisation", "client.orbit");
 	
-	private Label ApoapsisLabel = new Label(bundle.getString("apoapsis") + ": ");
-	private TextField ApoapsisField = new TextField();
-	private StringProperty ApoapsisText = new SimpleStringProperty();
+	private TextFieldGridComponent<String> BodyNameComponent;
 	
-	private Label TTApoapsisLabel = new Label(String.format("%s %s: ", bundle.getString("timeTo"), bundle.getString("apoapsis")));
-	private TextField TTApoapsisField = new TextField();
-	private StringProperty TTApoapsisText = new SimpleStringProperty();
+	private TextFieldGridComponent<Double> ApoapsisComponent;
+	private TextFieldGridComponent<Double> TTApoapsisComponent;
 	
-	private Label PeriapsisLabel = new Label(bundle.getString("periapsis") + ": ");
-	private TextField PeriapsisField = new TextField();
-	private StringProperty PeriapsisText = new SimpleStringProperty();
+	private TextFieldGridComponent<Double> PeriapsisComponent;
+	private TextFieldGridComponent<Double> TTPeriapsisComponent;
 	
-	private Label TTPeriapsisLabel = new Label(String.format("%s %s: ", bundle.getString("timeTo"), bundle.getString("periapsis")));
-	private TextField TTPeriapsisField = new TextField();
-	private StringProperty TTPeriapsisText = new SimpleStringProperty();
+	private TextFieldGridComponent<Double> SemiMajorAxisComponent;
+	private TextFieldGridComponent<Double> SemiMinorAxisComponent;
 	
+	private TextFieldGridComponent<Double> SpeedComponent;
+	private TextFieldGridComponent<Double> PerdiodComponent;
 	
+	private TextFieldGridComponent<Double> EccentricityComponent;
+	private TextFieldGridComponent<Double> InclinationComponent;
+	
+
 	public OrbitPanel() {
 		ClientContext.getInstance().getMQClient().getHandler(new Orbit().getPrefix()).register(this);
 		
-		ApoapsisField.setEditable(false);
-		ApoapsisField.setPrefColumnCount(10);
-		ApoapsisField.getStyleClass().add("NumberField");
-		ApoapsisField.textProperty().bind(ApoapsisText);
-		this.setHalignment(ApoapsisField, HPos.RIGHT);
+		BodyNameComponent = new TextFieldGridComponent<>(this, 0, bundle.getString("client.planet", "name"));
+		BodyNameComponent.addTextFieldStyleClass("TextField");
 		
-		TTApoapsisField.setEditable(false);
-		TTApoapsisField.setPrefColumnCount(10);
-		TTApoapsisField.getStyleClass().add("NumberField");
-		TTApoapsisField.textProperty().bind(TTApoapsisText);
-		this.setHalignment(TTApoapsisField, HPos.RIGHT);
+		ApoapsisComponent = new TextFieldGridComponent<>(this, 1, bundle.getString("apoapsis") + ": ", new HeightTextConverter());
+		ApoapsisComponent.addTextFieldStyleClass("TextField");
+		ApoapsisComponent.addTextFieldStyleClass("NumberField");
 		
-		PeriapsisField.setEditable(false);
-		PeriapsisField.setPrefColumnCount(10);
-		PeriapsisField.getStyleClass().add("NumberField");
-		PeriapsisField.textProperty().bind(PeriapsisText);
-		this.setHalignment(PeriapsisField, HPos.RIGHT);
+		TTApoapsisComponent = new TextFieldGridComponent<>(this, 2, String.format("%s %s: ", bundle.getString("timeTo"), bundle.getString("apoapsis")), new TimeTextConverter());
+		TTApoapsisComponent.addTextFieldStyleClass("TextField");
+		TTApoapsisComponent.addTextFieldStyleClass("NumberField");
 		
-		TTPeriapsisField.setEditable(false);
-		TTPeriapsisField.setPrefColumnCount(10);
-		TTPeriapsisField.getStyleClass().add("NumberField");
-		TTPeriapsisField.textProperty().bind(TTPeriapsisText);
-		this.setHalignment(TTPeriapsisField, HPos.RIGHT);
+		PeriapsisComponent = new TextFieldGridComponent<>(this, 3, bundle.getString("periapsis") + ": ", new HeightTextConverter());
+		PeriapsisComponent.addTextFieldStyleClass("TextField");
+		PeriapsisComponent.addTextFieldStyleClass("NumberField");
+		
+		TTPeriapsisComponent = new TextFieldGridComponent<>(this, 4, String.format("%s %s: ", bundle.getString("timeTo"), bundle.getString("periapsis")), new TimeTextConverter());
+		TTPeriapsisComponent.addTextFieldStyleClass("TextField");
+		TTPeriapsisComponent.addTextFieldStyleClass("NumberField");
+		
+		SemiMajorAxisComponent = new TextFieldGridComponent<>(this, 5, bundle.getString("semiMajorAxis"), new HeightTextConverter());
+		SemiMajorAxisComponent.addTextFieldStyleClass("TextField");
+		SemiMajorAxisComponent.addTextFieldStyleClass("NumberField");
+		
+		SemiMinorAxisComponent = new TextFieldGridComponent<>(this, 6, bundle.getString("semiMinorAxis"), new HeightTextConverter());
+		SemiMinorAxisComponent.addTextFieldStyleClass("TextField");
+		SemiMinorAxisComponent.addTextFieldStyleClass("NumberField");
+		
+		SpeedComponent = new TextFieldGridComponent<>(this, 7, bundle.getString("speed"), new SpeedTextConverter());
+		SpeedComponent.addTextFieldStyleClass("TextField");
+		SpeedComponent.addTextFieldStyleClass("NumberField");
+		
+		PerdiodComponent = new TextFieldGridComponent<>(this, 8, bundle.getString("period"), new TimeTextConverter());
+		PerdiodComponent.addTextFieldStyleClass("TextField");
+		PerdiodComponent.addTextFieldStyleClass("NumberField");
+		
+		EccentricityComponent = new TextFieldGridComponent<>(this, 9, bundle.getString("eccentricity"));
+		EccentricityComponent.addTextFieldStyleClass("TextField");
+		EccentricityComponent.addTextFieldStyleClass("NumberField");
+		
+		InclinationComponent = new TextFieldGridComponent<>(this, 10, bundle.getString("inclination"));
+		InclinationComponent.addTextFieldStyleClass("TextField");
+		InclinationComponent.addTextFieldStyleClass("NumberField");
 		
 		this.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, null, null)));
-		
-		this.add(ApoapsisLabel, 0, 0);
-		this.add(ApoapsisField, 1, 0);
-		this.add(TTApoapsisLabel, 0, 1);
-		this.add(TTApoapsisField, 1, 1);
-		this.add(PeriapsisLabel, 0, 2);
-		this.add(PeriapsisField, 1, 2);
-		this.add(TTPeriapsisLabel, 0, 3);
-		this.add(TTPeriapsisField, 1, 3);
 	}
 
 	public void handle(Orbit object) {
-		ApoapsisText.set(Formats.ufAltitude.format(object.getApoapsisAltitude()));
-		TTApoapsisText.set(Formats.formatSec(object.getTimeToApoapsis()));
-		PeriapsisText.set(Formats.ufAltitude.format(object.getPeriapsisAltitude()));
-		TTPeriapsisText.set(Formats.formatSec(object.getTimeToPeriapsis()));
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				//BodyNameComponent.setText(object.getBody);
+				ApoapsisComponent.setText(object.getApoapsisAltitude());
+				TTApoapsisComponent.setText(object.getTimeToApoapsis());
+				PeriapsisComponent.setText(object.getPeriapsisAltitude());
+				TTPeriapsisComponent.setText(object.getTimeToPeriapsis());
+				SemiMajorAxisComponent.setText(object.getSemiMajorAxis());
+				SemiMinorAxisComponent.setText(object.getSemiMinorAxis());
+				SpeedComponent.setText(object.getSpeed());
+				PerdiodComponent.setText(object.getPeriod());
+				EccentricityComponent.setText(object.getEccentricity());
+				InclinationComponent.setText(object.getInclination());
+			}
+		});
+		
 	}
 
 	@Override

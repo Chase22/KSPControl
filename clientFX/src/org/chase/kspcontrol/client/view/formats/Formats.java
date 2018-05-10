@@ -1,16 +1,19 @@
-package org.chase.kspcontrol.client.view;
+package org.chase.kspcontrol.client.view.formats;
 
 import java.time.Duration;
 
 import com.amjjd.unitformat.UnitFormat;
 
 public class Formats {
-	public static UnitFormat ufAltitude;
+	public static final UnitFormat ufAltitude;
+	public static final UnitFormat ufSpeed;
 	
 	static {
 		ufAltitude = UnitFormat.getSIInstance("m");
 		ufAltitude.setNextUnitAt(100000.00);
 		ufAltitude.setMaximumFractionDigits(0);
+		
+		ufSpeed = UnitFormat.getSIInstance("m/s");
 	}
 	
 	public static String formatSec(double seconds) {

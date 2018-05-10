@@ -78,8 +78,16 @@ public class KSPResourceBundle {
 		return bundle.getString(buildKey(key));
 	}
 	
+	public String getString(String prefix, String key) {
+		return bundle.getString(buildKey(prefix, key));
+	}
+	
 	public String getFormatString(String key, Object...params) {
 		return String.format(getString(key), params);
+	}
+	
+	public String getFormatString(String prefix, String key, Object...params) {
+		return String.format(getString(prefix, key), params);
 	}
 	
 	public Object getObject(String key) {
@@ -87,6 +95,10 @@ public class KSPResourceBundle {
 	}
 	
 	private String buildKey(String key) {
+		return buildKey(prefix, key);
+	}
+	
+	private String buildKey(String prefix, String key) {
 		String buildkey = "";
 		if (prefix != null) buildkey += prefix + ".";
 		buildkey += key;

@@ -6,5 +6,9 @@
 } 
 
 .NumberField {
+
+} 
+
+.TextField {
 	-fx-font-family: monospace;
 } 

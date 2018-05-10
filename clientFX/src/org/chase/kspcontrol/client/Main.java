@@ -3,12 +3,6 @@ package org.chase.kspcontrol.client;
 import java.util.ResourceBundle;
 
 import org.chase.kspcontrol.client.view.RootPane;
-import org.chase.kspcontrol.client.view.components.ToggleComponent;
-import org.chase.kspcontrol.client.view.panels.AltiudePanel;
-import org.chase.kspcontrol.client.view.panels.GeneralControlPanel;
-import org.chase.kspcontrol.client.view.panels.MoveablePane;
-import org.chase.kspcontrol.client.view.panels.OrbitPanel;
-import org.chase.kspcontrol.client.view.subviews.PaneListPanel;
 import org.chase.kspcontrol.common.data.Flight;
 import org.chase.kspcontrol.common.data.GeneralControl;
 import org.chase.kspcontrol.common.data.Orbit;
@@ -44,6 +38,7 @@ public class Main extends Application {
 			primaryStage.setOnCloseRequest(event -> {
 				ClientContext.getInstance().close();
 			});
+			
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
