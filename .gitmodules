@@ -1,0 +1,9 @@
+[submodule "KMC-Server"]
+	path = KMC-Server
+	url = https://github.com/Chase22/KMC-Server
+[submodule "KMC-Client"]
+	path = KMC-Client
+	url = git@github.com:Chase22/KMC-Client.git
+[submodule "KMC-Frontend"]
+	path = KMC-Frontend
+	url = git@github.com:Chase22/KMC-Frontend.git
